@@ -17,7 +17,6 @@ namespace Edee_Assignment5
             private string _suit;
             private string _color;
 
-
             //Constructors:
             public Card(string rank, string suit)
             {
@@ -56,7 +55,6 @@ namespace Edee_Assignment5
                 }
             }
 
-
             //Properties:
             public string Rank
             {
@@ -73,8 +71,6 @@ namespace Edee_Assignment5
                 get { return _color; }
             }
 
-
-            //Override methods
             public override string ToString()
             {
                 Console.OutputEncoding = Encoding.UTF8;
@@ -94,29 +90,6 @@ namespace Edee_Assignment5
                     return $"{this._rank}\u2665";
 
                 return "Error";
-            }
-
-            public override bool Equals(object otherCard)
-            {
-                if(otherCard == null || GetType() != otherCard.GetType())
-                {
-                    return false;
-                }
-
-                Card newCard = (Card)otherCard;
-
-                return this._rank == newCard._rank && this._suit == newCard._suit && this._color == newCard._color;
-            }
-
-            public override int GetHashCode()
-            {
-                int hash = 17;
-
-                hash = hash * 31 + (_rank != null ? _rank.GetHashCode() : 0);
-                hash = hash * 31 + (_suit != null ? _suit.GetHashCode() : 0);
-                hash = hash * 31 + (_color != null ? _color.GetHashCode() : 0);
-
-                return hash;
             }
         }
     }

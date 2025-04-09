@@ -17,7 +17,6 @@ namespace Edee_Assignment5
             private string _suit;
             private string _color;
 
-
             //Constructors:
             public Card(string rank, string suit)
             {
@@ -56,7 +55,6 @@ namespace Edee_Assignment5
                 }
             }
 
-
             //Properties:
             public string Rank
             {
@@ -72,7 +70,6 @@ namespace Edee_Assignment5
             {
                 get { return _color; }
             }
-
 
             //Override methods
             public override string ToString()
