@@ -243,7 +243,7 @@ namespace Edee_Assignment5
         public class Hand()
         {
             //Fields:
-            private List<Card> _cardsList; //This is the hand, btw (list of cards)
+            private List<Card> _cardsList;
             private string[] _suitPriority;
             
 
@@ -303,14 +303,13 @@ namespace Edee_Assignment5
                         }
                     }
 
-                    //Add sorted cards of this suit to the new hand list
+                    //Add sorted cards of this suit to the final list
                     sortedCards.AddRange(cardsWithSuit);
                 }
 
-                //Replace the original hand with the sorted one
+                //Replace the original  hand with the sorted one
                 _cardsList = sortedCards;
             }
-
 
             //Override method:
             public override string ToString()

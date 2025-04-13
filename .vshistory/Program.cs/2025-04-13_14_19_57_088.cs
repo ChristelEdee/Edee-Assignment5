@@ -311,7 +311,6 @@ namespace Edee_Assignment5
                 _cardsList = sortedCards;
             }
 
-
             //Override method:
             public override string ToString()
             {

@@ -243,8 +243,8 @@ namespace Edee_Assignment5
         public class Hand()
         {
             //Fields:
-            private List<Card> _cardsList; //This is the hand, btw (list of cards)
-            private string[] _suitPriority;
+            private List<Card> _cardsList;
+            private string[] suitPriority;
             
 
             //Property:
@@ -255,68 +255,7 @@ namespace Edee_Assignment5
 
 
             //Constructor:
-            public Hand(string[] suitPriority)
-            {
-                this._cardsList = new List<Card>();
-                this._suitPriority = suitPriority;
-            }
 
-            //Methods:
-            public void AddCard(Card card)
-            {
-                _cardsList.Add(card);
-                OrderBySuit();
-            }
-
-            public Card RemoveCard()
-            {
-                Card cardToRemove = _cardsList[0]; //Picks a card from the deck
-                _cardsList.RemoveAt(0); //Removes it from the deck
-                OrderBySuit(); //Reorders hand accordingly
-
-                return cardToRemove; //Returns it
-            }
-
-            public bool Contains(Card target)
-            {
-                return _cardsList.Contains(target); //Checking if a target card is in hand (returns boolean)
-            }
-
-            public void OrderBySuit()
-            {
-                List<Card> sortedCards = new List<Card>(); //New hand list
-
-                for(int i = 0; i < _suitPriority.Length; i++)
-                {
-                    //Taking the current index's suit
-                    string currentSuit = _suitPriority[i]; 
-
-                    //Temporary list to store the cards that have that current suit
-                    List<Card> cardsWithSuit = new List<Card>();
-
-                    //Store all cards that match the current suit
-                    for(int j = 0; j <_cardsList.Count; j++)
-                    {
-                        if (_cardsList[j].Suit == currentSuit)
-                        {
-                            cardsWithSuit.Add(_cardsList[j]);
-                        }
-                    }
-
-                    //Add sorted cards of this suit to the new hand list
-                    sortedCards.AddRange(cardsWithSuit);
-                }
-
-                //Replace the original hand with the sorted one
-                _cardsList = sortedCards;
-            }
-
-
-            //Override method:
-            public override string ToString()
-            {
-                return string.Join(", ", _cardsList.Select(card => card.ToString()));
-            }
 
         }
     }
