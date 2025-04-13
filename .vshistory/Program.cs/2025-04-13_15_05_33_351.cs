@@ -408,27 +408,6 @@ namespace Edee_Assignment5
             {
                 Console.WriteLine(this.ToString());
             }
-
-
-            //Override method:
-            public override string ToString()
-            {
-                string gameStateDisplay = "Game State:\n"; //The main string that will be returned (we're adding to it)
-
-                //Displaying each player's hand
-                for(int i = 0; i < _playerHands.Count; i++)
-                {
-                    gameStateDisplay += $"Player {i + 1}'s Hand: {_playerHands[i]}\n";
-                }
-
-                //Displaying the remaining cards in the draw deck
-                gameStateDisplay += $"Draw Deck: {CardsLeft} cards left.\n";
-
-                //Display discard pile
-                gameStateDisplay += $"Discard Pile: {DiscardPileSize} cards (Top card: {_discardPile.Peek()}\n";
-
-                return gameStateDisplay;
-            }
         }
     }
 }
