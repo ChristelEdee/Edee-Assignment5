@@ -240,7 +240,7 @@ namespace Edee_Assignment5
             }
         }
 
-        public class Hand
+        public class Hand()
         {
             //Fields:
             private List<Card> _cardsList; //This is the hand, btw (list of cards)
@@ -317,11 +317,6 @@ namespace Edee_Assignment5
             {
                 return string.Join(", ", _cardsList.Select(card => card.ToString()));
             }
-
-        }
-
-        public class GameState
-        {
 
         }
     }
