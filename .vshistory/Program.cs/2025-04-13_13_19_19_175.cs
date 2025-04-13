@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-using static Edee_Assignment5.Program;
 
 namespace Edee_Assignment5
 {
@@ -173,69 +172,28 @@ namespace Edee_Assignment5
                 {
                     foreach (string rank in ranks)
                     {
-                        _cardsList.Add(new Card(suit, rank)); //Adding each card to the deck (They're in order at the moment)
+                        _cardsList.Add(new Card(suit, rank));
                     }
                 }
 
                 //Checking if the user wanted jokers in the deck (boolean)
                 if (hasJoker == true)
                 {
-                    _cardsList.Add(new Card(53)); //Red Joker (Using the Card integer constructor)
-                    _cardsList.Add(new Card(54)); //Black Joker (Using the Card integer constructor)
+                    _cardsList.Add(new Card(53)); //Red Joker
+                    _cardsList.Add(new Card(54)); //Black Joker
                 }
             }
 
-            public Deck(List<Card> newCustomCards)
+            //Special????? WHAT?
+            public Deck(List<Card> cardsList)
             {
-                newCustomCards = new List<Card>(newCustomCards);
+
             }
 
 
-            //Methods:
-            public Card Draw()
-            {
-                //Returning null if there are no more cards in the deck
-                if (_cardsList.Count == 0)
-                    return null;
-
-                Card topCard = _cardsList[0]; //Getting the first card in the deck
-                _cardsList.Remove(topCard); //Removing it from the list
-
-                return topCard; //Returning it
-            }
-            
-            public void Shuffle()
-            {
-                Random random = new Random();
-                int n = _cardsList.Count; //Will help to keep track of the number of shuffles
-
-                //Shuffling process:
-                while(n > 1)
-                {
-                    n--;
-                    int i = random.Next(n + 1); //Taking a random index
-                    Card tempCard = _cardsList[i]; //Picking the specific card at that index
-                    _cardsList[i] = _cardsList[n]; //Switching that card for another one in the deck
-                    _cardsList[n] = tempCard; 
-                }
-            }
-
-            public Card Peek()
-            {
-                //Making sure the deck isn't empty
-                if (_cardsList.Count == 0)
-                    throw new ArgumentException("No cards left in the deck.");
-
-                return _cardsList[0]; //Returning the top card of the deck (no removing)
-            }
-
-            public void PlaceOnTop(Card card)
-            {
-                _cardsList.Insert(0, card); //Adding a provided card to the top of the decl
-            }
 
 
-            //Override method:
+            //Override method
             public override string ToString()
             {
                 return $"There are {this.CardsLeft} cards left.";

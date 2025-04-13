@@ -185,10 +185,12 @@ namespace Edee_Assignment5
                 }
             }
 
+            //Custom deck constructor?
             public Deck(List<Card> newCustomCards)
             {
                 newCustomCards = new List<Card>(newCustomCards);
             }
+
 
 
             //Methods:
@@ -229,9 +231,9 @@ namespace Edee_Assignment5
                 return _cardsList[0]; //Returning the top card of the deck (no removing)
             }
 
-            public void PlaceOnTop(Card card)
+            public void PlaceOnTop()
             {
-                _cardsList.Insert(0, card); //Adding a provided card to the top of the decl
+
             }
 
 

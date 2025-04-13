@@ -1,28 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-using static Edee_Assignment5.Program;
 
 namespace Edee_Assignment5
 {
     internal class Program
     {
-        /*
-         * Programming 2 - Assignment 5 – Winter 2025
-         * Created by:      Christel Edee 6250046
-         * Tested by:       Cheryl-Ann Edee
-         * Relationship:    Sister
-         * Date:            2025-04-13
-         *
-         * Description: The goal of this program is to do the * following:
-         * Create an object-based approach to classes based on a basic Card game. (No gameplay)
-         */
-
         static void Main(string[] args)
         {
-            Console.WriteLine("************************************");
-            Console.WriteLine("Welcome to Programming 2 - Assignment 5 - Winter 2025\n");
-            Console.WriteLine("Created by CHRISTEL 6250046 on April 13th 2025");
-            Console.WriteLine("************************************");
 
             Console.ReadLine();
         }
@@ -49,7 +33,7 @@ namespace Edee_Assignment5
                     throw new ArgumentException("Invalid suit provided.");
             }
 
-            //Constructor for Joker:
+            //Constructor for Joker
             public Card(string color)
             {
                 this._rank = "Joker";
@@ -57,7 +41,6 @@ namespace Edee_Assignment5
                 this._color = color;
             }
 
-            //Constructor for integer input:
             public Card(int num)
             {
                 if(num == 53)
@@ -71,10 +54,6 @@ namespace Edee_Assignment5
                     this._rank = "Joker";
                     this._suit = null;
                     this._color = "Black";
-                }
-                else
-                {
-                    throw new ArgumentException("Only 53 (Red Joker) and 54 (Black Joker) are valid inputs.");
                 }
             }
 
@@ -173,69 +152,28 @@ namespace Edee_Assignment5
                 {
                     foreach (string rank in ranks)
                     {
-                        _cardsList.Add(new Card(suit, rank)); //Adding each card to the deck (They're in order at the moment)
+                        _cardsList.Add(new Card(suit, rank));
                     }
                 }
 
                 //Checking if the user wanted jokers in the deck (boolean)
                 if (hasJoker == true)
                 {
-                    _cardsList.Add(new Card(53)); //Red Joker (Using the Card integer constructor)
-                    _cardsList.Add(new Card(54)); //Black Joker (Using the Card integer constructor)
+                    _cardsList.Add(new Card(53)); //Red Joker
+                    _cardsList.Add(new Card(54)); //Black Joker
                 }
             }
 
-            public Deck(List<Card> newCustomCards)
+            //Special????? WHAT?
+            public Deck(List<Card> cardsList)
             {
-                newCustomCards = new List<Card>(newCustomCards);
+
             }
 
 
-            //Methods:
-            public Card Draw()
-            {
-                //Returning null if there are no more cards in the deck
-                if (_cardsList.Count == 0)
-                    return null;
-
-                Card topCard = _cardsList[0]; //Getting the first card in the deck
-                _cardsList.Remove(topCard); //Removing it from the list
-
-                return topCard; //Returning it
-            }
-            
-            public void Shuffle()
-            {
-                Random random = new Random();
-                int n = _cardsList.Count; //Will help to keep track of the number of shuffles
-
-                //Shuffling process:
-                while(n > 1)
-                {
-                    n--;
-                    int i = random.Next(n + 1); //Taking a random index
-                    Card tempCard = _cardsList[i]; //Picking the specific card at that index
-                    _cardsList[i] = _cardsList[n]; //Switching that card for another one in the deck
-                    _cardsList[n] = tempCard; 
-                }
-            }
-
-            public Card Peek()
-            {
-                //Making sure the deck isn't empty
-                if (_cardsList.Count == 0)
-                    throw new ArgumentException("No cards left in the deck.");
-
-                return _cardsList[0]; //Returning the top card of the deck (no removing)
-            }
-
-            public void PlaceOnTop(Card card)
-            {
-                _cardsList.Insert(0, card); //Adding a provided card to the top of the decl
-            }
 
 
-            //Override method:
+            //Override method
             public override string ToString()
             {
                 return $"There are {this.CardsLeft} cards left.";
