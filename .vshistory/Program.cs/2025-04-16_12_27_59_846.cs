@@ -20,18 +20,19 @@ namespace Edee_Assignment5
 
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("************************************");
             Console.WriteLine("Welcome to Programming 2 - Assignment 5 - Winter 2025\n");
             Console.WriteLine("Created by CHRISTEL 6250046 on April 13th 2025");
             Console.WriteLine("************************************");
 
-            bool mainLoop = true; //The main loop (while true, menu continues appearing. Becomes false if user quits.)
-            GameState gameState = null; //Useful for later
+            bool mainLoop = true;
 
             try
             {
                 while (mainLoop)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("\n");
 
                     Console.WriteLine("Please choose below:\n");
@@ -47,71 +48,22 @@ namespace Edee_Assignment5
                     switch (menuChoice)
                     {
                         case 1:
-                            //Setting up the jokers (can change between true and false)
-                            bool hasJokers = true;
 
-                            //Seeting  up the suit priority (Options: Hearts, Diamonds, Clubs, Spades)
-                            string[] suitPriority = {"Diamonds", "Clubs", "Hearts", "Spades"};
+                            //Define suit priorities 
+                            string[] suitPriority = { "Hearts", "Diamonds", "Clubs", "Spades" };
 
-                            //Initializing game state with the joker boolean and the suit priority 
-                            gameState = new GameState(hasJokers, suitPriority);
 
-                            //Little success message:
-                            Console.WriteLine();
-
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Game successfully set up.");
-                            Console.ForegroundColor = ConsoleColor.White;
+                            // Create a new GameState object, passing in "true" to include jokers and the suit priority array
+                            GameState gameState = new GameState(true, suitPriority);
                         break;
 
                         case 2:
-                            //Making sure the game was actually set up:
-                            if(gameState == null)
-                            {
-                                Console.WriteLine();
+                            int cardsPerPlayer = 5;
 
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("You need to set up a game first.");
-                                Console.ForegroundColor= ConsoleColor.White;
-                                break;
-                            }
-
-                            try
-                            {
-                                //Dealing
-                                gameState.Deal();
-
-                                //Little success message:
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Hands sucessfully dealt to all players.");
-                                Console.ForegroundColor = ConsoleColor.White;
-
-                            }
-                            catch(Exception ex)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"Error: {ex.Message}");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
+                            gameState.Deal();
                         break;
 
                         case 3:
-                            //Making sure the game was actually set up:
-                            if (gameState == null)
-                            {
-                                Console.WriteLine();
-
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("You need to set up a game first.");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-                            else
-                            {
-                                Console.Clear(); //Keeping the console clean
-
-                                Console.OutputEncoding = Encoding.UTF8; //Have to put this to get the suit symbols                               
-                                Console.WriteLine(gameState.ToString());
-                            }               
                         break;
 
                         case 4:
@@ -125,7 +77,19 @@ namespace Edee_Assignment5
                 Console.Write("Press any key to exit the program.");
                 Console.ReadLine();
 
+                //FYI -> THIS MAKES THE CARDS LOOK LIKE CARDS KINDA. FIND A WAY TO REDUCE THAT AMOUNT OF CODE THO...
 
+                //Console.BackgroundColor = ConsoleColor.White;
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("RJ");
+                //Console.BackgroundColor = ConsoleColor.Black;
+
+                //Console.WriteLine();
+
+                //Console.BackgroundColor = ConsoleColor.White;
+                //Console.ForegroundColor = ConsoleColor.Black;
+                //Console.WriteLine("BJ");
+                //Console.BackgroundColor = ConsoleColor.Black;
             }
             catch (Exception ex)
             {
@@ -148,7 +112,7 @@ namespace Edee_Assignment5
 
 
             //Constructors:
-            public Card(string suit, string rank)
+            public Card(string rank, string suit)
             {
                 _rank = rank;
                 _suit = suit;
@@ -209,6 +173,7 @@ namespace Edee_Assignment5
             //Override methods
             public override string ToString()
             {
+                Console.OutputEncoding = Encoding.UTF8;
 
                 if (this._rank == "Joker" && this._color == "Red")
                     return "RJ";
@@ -216,13 +181,13 @@ namespace Edee_Assignment5
                     return "BJ";
 
                 if (this._suit == "Diamonds")
-                    return $"{this._rank} of \u2666";
+                    return $"{this._rank}\u2666";
                 else if (this._suit == "Clubs")
-                    return $"{this._rank} of \u2663";
+                    return $"{this._rank}\u2663";
                 else if (this._suit == "Spades")
-                    return $"{this._rank} of \u2660";
+                    return $"{this._rank}\u2660";
                 else if (this._suit == "Hearts")
-                    return $"{this._rank} of \u2665";
+                    return $"{this._rank}\u2665";
 
                 return "Error";
             }
@@ -368,8 +333,8 @@ namespace Edee_Assignment5
             //Constructor:
             public Hand(string[] suitPriority)
             {
-                _cardsList = new List<Card>();
-                _suitPriority = suitPriority;
+                this._cardsList = new List<Card>();
+                this._suitPriority = suitPriority;
             }
 
             //Methods:
@@ -445,7 +410,7 @@ namespace Edee_Assignment5
             {
                 int playerNum = 4;
 
-                _suitPriorities = suitPriority;
+                this._suitPriorities = suitPriority;
                 _drawDeck = new Deck(hasJokers);
                 _discardPile = new Deck();
 

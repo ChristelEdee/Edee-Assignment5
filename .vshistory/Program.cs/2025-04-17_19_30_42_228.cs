@@ -51,7 +51,7 @@ namespace Edee_Assignment5
                             bool hasJokers = true;
 
                             //Seeting  up the suit priority (Options: Hearts, Diamonds, Clubs, Spades)
-                            string[] suitPriority = {"Diamonds", "Clubs", "Hearts", "Spades"};
+                            string[] suitPriority = { "Diamonds", "Clubs", "Hearts", "Spades" };
 
                             //Initializing game state with the joker boolean and the suit priority 
                             gameState = new GameState(hasJokers, suitPriority);
@@ -78,40 +78,16 @@ namespace Edee_Assignment5
 
                             try
                             {
-                                //Dealing
-                                gameState.Deal();
-
-                                //Little success message:
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Hands sucessfully dealt to all players.");
-                                Console.ForegroundColor = ConsoleColor.White;
 
                             }
                             catch(Exception ex)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"Error: {ex.Message}");
-                                Console.ForegroundColor = ConsoleColor.White;
+
                             }
                         break;
 
                         case 3:
-                            //Making sure the game was actually set up:
-                            if (gameState == null)
-                            {
-                                Console.WriteLine();
-
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("You need to set up a game first.");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-                            else
-                            {
-                                Console.Clear(); //Keeping the console clean
-
-                                Console.OutputEncoding = Encoding.UTF8; //Have to put this to get the suit symbols                               
-                                Console.WriteLine(gameState.ToString());
-                            }               
+                            Console.OutputEncoding = Encoding.UTF8; //Have to put this to get the suit symbols
                         break;
 
                         case 4:
@@ -148,7 +124,7 @@ namespace Edee_Assignment5
 
 
             //Constructors:
-            public Card(string suit, string rank)
+            public Card(string rank, string suit)
             {
                 _rank = rank;
                 _suit = suit;
@@ -368,8 +344,8 @@ namespace Edee_Assignment5
             //Constructor:
             public Hand(string[] suitPriority)
             {
-                _cardsList = new List<Card>();
-                _suitPriority = suitPriority;
+                this._cardsList = new List<Card>();
+                this._suitPriority = suitPriority;
             }
 
             //Methods:
@@ -445,7 +421,7 @@ namespace Edee_Assignment5
             {
                 int playerNum = 4;
 
-                _suitPriorities = suitPriority;
+                this._suitPriorities = suitPriority;
                 _drawDeck = new Deck(hasJokers);
                 _discardPile = new Deck();
 

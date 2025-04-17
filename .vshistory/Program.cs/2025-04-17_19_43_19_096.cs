@@ -148,7 +148,7 @@ namespace Edee_Assignment5
 
 
             //Constructors:
-            public Card(string suit, string rank)
+            public Card(string rank, string suit)
             {
                 _rank = rank;
                 _suit = suit;

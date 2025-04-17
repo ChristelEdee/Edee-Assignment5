@@ -20,18 +20,20 @@ namespace Edee_Assignment5
 
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("************************************");
             Console.WriteLine("Welcome to Programming 2 - Assignment 5 - Winter 2025\n");
             Console.WriteLine("Created by CHRISTEL 6250046 on April 13th 2025");
             Console.WriteLine("************************************");
 
-            bool mainLoop = true; //The main loop (while true, menu continues appearing. Becomes false if user quits.)
-            GameState gameState = null; //Useful for later
+            bool mainLoop = true;
 
             try
             {
+                //Code here
                 while (mainLoop)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("\n");
 
                     Console.WriteLine("Please choose below:\n");
@@ -47,71 +49,12 @@ namespace Edee_Assignment5
                     switch (menuChoice)
                     {
                         case 1:
-                            //Setting up the jokers (can change between true and false)
-                            bool hasJokers = true;
-
-                            //Seeting  up the suit priority (Options: Hearts, Diamonds, Clubs, Spades)
-                            string[] suitPriority = {"Diamonds", "Clubs", "Hearts", "Spades"};
-
-                            //Initializing game state with the joker boolean and the suit priority 
-                            gameState = new GameState(hasJokers, suitPriority);
-
-                            //Little success message:
-                            Console.WriteLine();
-
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Game successfully set up.");
-                            Console.ForegroundColor = ConsoleColor.White;
                         break;
 
                         case 2:
-                            //Making sure the game was actually set up:
-                            if(gameState == null)
-                            {
-                                Console.WriteLine();
-
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("You need to set up a game first.");
-                                Console.ForegroundColor= ConsoleColor.White;
-                                break;
-                            }
-
-                            try
-                            {
-                                //Dealing
-                                gameState.Deal();
-
-                                //Little success message:
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Hands sucessfully dealt to all players.");
-                                Console.ForegroundColor = ConsoleColor.White;
-
-                            }
-                            catch(Exception ex)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"Error: {ex.Message}");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
                         break;
 
                         case 3:
-                            //Making sure the game was actually set up:
-                            if (gameState == null)
-                            {
-                                Console.WriteLine();
-
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("You need to set up a game first.");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-                            else
-                            {
-                                Console.Clear(); //Keeping the console clean
-
-                                Console.OutputEncoding = Encoding.UTF8; //Have to put this to get the suit symbols                               
-                                Console.WriteLine(gameState.ToString());
-                            }               
                         break;
 
                         case 4:
@@ -125,7 +68,19 @@ namespace Edee_Assignment5
                 Console.Write("Press any key to exit the program.");
                 Console.ReadLine();
 
+                //FYI -> THIS MAKES THE CARDS LOOK LIKE CARDS KINDA. FIND A WAY TO REDUCE THAT AMOUNT OF CODE THO...
 
+                //Console.BackgroundColor = ConsoleColor.White;
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("RJ");
+                //Console.BackgroundColor = ConsoleColor.Black;
+
+                //Console.WriteLine();
+
+                //Console.BackgroundColor = ConsoleColor.White;
+                //Console.ForegroundColor = ConsoleColor.Black;
+                //Console.WriteLine("BJ");
+                //Console.BackgroundColor = ConsoleColor.Black;
             }
             catch (Exception ex)
             {
@@ -137,8 +92,6 @@ namespace Edee_Assignment5
             Console.ReadLine();
         }
 
-
-        //Classes:
         public class Card
         {
             //Fields:
@@ -148,7 +101,7 @@ namespace Edee_Assignment5
 
 
             //Constructors:
-            public Card(string suit, string rank)
+            public Card(string rank, string suit)
             {
                 _rank = rank;
                 _suit = suit;
@@ -209,6 +162,7 @@ namespace Edee_Assignment5
             //Override methods
             public override string ToString()
             {
+                Console.OutputEncoding = Encoding.UTF8;
 
                 if (this._rank == "Joker" && this._color == "Red")
                     return "RJ";
@@ -216,13 +170,13 @@ namespace Edee_Assignment5
                     return "BJ";
 
                 if (this._suit == "Diamonds")
-                    return $"{this._rank} of \u2666";
+                    return $"{this._rank}\u2666";
                 else if (this._suit == "Clubs")
-                    return $"{this._rank} of \u2663";
+                    return $"{this._rank}\u2663";
                 else if (this._suit == "Spades")
-                    return $"{this._rank} of \u2660";
+                    return $"{this._rank}\u2660";
                 else if (this._suit == "Hearts")
-                    return $"{this._rank} of \u2665";
+                    return $"{this._rank}\u2665";
 
                 return "Error";
             }
@@ -316,7 +270,7 @@ namespace Edee_Assignment5
             public void Shuffle()
             {
                 Random random = new Random();
-                int n = _cardsList.Count; 
+                int n = _cardsList.Count; //Will help to keep track of the number of shuffles
 
                 //Shuffling process:
                 while(n > 1)
@@ -368,15 +322,15 @@ namespace Edee_Assignment5
             //Constructor:
             public Hand(string[] suitPriority)
             {
-                _cardsList = new List<Card>();
-                _suitPriority = suitPriority;
+                this._cardsList = new List<Card>();
+                this._suitPriority = suitPriority;
             }
 
             //Methods:
             public void AddCard(Card card)
             {
-                _cardsList.Add(card); //Adding a card to the hand
-                OrderBySuit(); //Reordering the hand accordingly
+                _cardsList.Add(card);
+                OrderBySuit();
             }
 
             public Card RemoveCard()
@@ -426,7 +380,7 @@ namespace Edee_Assignment5
             //Override method:
             public override string ToString()
             {
-                return string.Join(", ", _cardsList.Select(card => card.ToString())); //Displaying the hand nicely
+                return string.Join(", ", _cardsList.Select(card => card.ToString()));
             }
 
         }
@@ -439,13 +393,12 @@ namespace Edee_Assignment5
             private List<Hand> _playerHands;
             private string[] _suitPriorities;
 
-
             //Constructor:
-            public GameState(bool hasJokers, string[] suitPriority)
+            public GameState(string[] suitPriority, bool hasJokers)
             {
                 int playerNum = 4;
 
-                _suitPriorities = suitPriority;
+                this._suitPriorities = suitPriority;
                 _drawDeck = new Deck(hasJokers);
                 _discardPile = new Deck();
 
@@ -517,7 +470,7 @@ namespace Edee_Assignment5
 
             public void DisplayGameState()
             {
-                Console.WriteLine(this.ToString()); //Displaying the game??? Do I really need anohter method for that?
+                Console.WriteLine(this.ToString());
             }
 
 
@@ -540,27 +493,6 @@ namespace Edee_Assignment5
 
                 return gameStateDisplay;
             }
-        }
-
-
-        //Verification method:
-        static byte MenuChoiceValidation()
-        {
-            const byte MAX_MENU_CHOICE = 4; //Last choice for main menu
-            const byte MIN_CHOICE_NUM = 1;
-
-            byte userInput;
-            bool successfulConversion;
-
-            successfulConversion = byte.TryParse(Console.ReadLine(), out userInput);
-
-            while (successfulConversion == false || userInput > MAX_MENU_CHOICE || userInput < MIN_CHOICE_NUM)
-            {
-                Console.Write($"What you entered was not a valid choice. Try again: ");
-                successfulConversion = byte.TryParse(Console.ReadLine(), out userInput);
-            }
-
-            return userInput;
         }
     }
 }
