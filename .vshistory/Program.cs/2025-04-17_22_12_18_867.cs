@@ -669,7 +669,6 @@ namespace Edee_Assignment5
         }
 
 
-
         /*SetUpGame():
          * Algorithm:
          * Initializes the game environment by creating a new GameState object using predefined values.
@@ -765,6 +764,7 @@ namespace Edee_Assignment5
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
+
 
         static void DiscardCard(ref GameState gameState) //I don't understand what the discard pile does. I don't play cards. 
         {

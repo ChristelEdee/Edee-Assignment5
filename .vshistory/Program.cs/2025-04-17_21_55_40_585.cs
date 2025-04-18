@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
 using static Edee_Assignment5.Program;
@@ -115,40 +113,7 @@ namespace Edee_Assignment5
         }
 
 
-
-        /* CARD CLASS!!!
-         * 
-         * Algorithm:
-         * The Card class represents an individual playing card.
-         * It has three private fields: _rank, _suit, and _color.
-         * Three constructors allow card creation based on rank/suit, color (Jokers), or special index values (53/54).
-         * Properties expose the internal fields for external access.
-         * ToString() returns a readable string version of the card.
-         * Equals() checks if two cards are identical.
-         * GetHashCode() returns a unique hash based on card attributes.
-         * 
-         * Parameters:
-         * - string suit, rank / string color / int index depending on constructor used
-         * 
-         * Return Values:
-         * - Varies: Card object, formatted string, boolean, or hash code
-         * 
-         * Exceptions:
-         * - ArgumentException for invalid suit/rank/index inputs
-         * 
-         * Pseudocode:
-         * IF using suit + rank:
-         *     VALIDATE inputs
-         *     SET fields
-         * ELSE IF using color:
-         *     SET rank to "Joker"
-         *     SET suit to null
-         *     SET color to input
-         * ELSE IF using index:
-         *     IF index == 53 -> Red Joker
-         *     IF index == 54 -> Black Joker
-         *     ELSE throw exception
-         */
+        //Classes:
         public class Card
         {
             //Fields:
@@ -267,38 +232,6 @@ namespace Edee_Assignment5
             }
         }
 
-
-        /* DECK CLASS!!!
-         * 
-         * Algorithm:
-         * The Deck class represents a collection of Card objects.
-         * It can be constructed as an empty list, standard deck, or custom list.
-         * Cards can be drawn, peeked at, shuffled, or placed back on top.
-         * 
-         * Parameters:
-         * - bool hasJoker / List<Card> newCustomCards
-         * 
-         * Return Values:
-         * - Draw() returns a Card or null
-         * - Peek() returns the top card
-         * - ToString() returns string summary
-         * 
-         * Exceptions:
-         * - None directly thrown in methods (nulls returned instead)
-         * 
-         * Pseudocode:
-         * On construction:
-         *     IF hasJoker true:
-         *         Add all 52 standard cards + Jokers
-         * Draw():
-         *     RETURN top card and remove from list
-         * Peek():
-         *     RETURN top card without removing
-         * Shuffle():
-         *     RANDOMIZE the order of cards
-         * PlaceOnTop():
-         *     INSERT card at index 0
-         */
         public class Deck
         {
             //Field:
@@ -399,37 +332,6 @@ namespace Edee_Assignment5
             }
         }
 
-
-        /* HAND CLASS!!!
-         * 
-         * Algorithm:
-         * Represents a player's hand.
-         * Stores cards and keeps them sorted by a priority array.
-         * Allows cards to be added, removed, or searched.
-         * 
-         * Parameters:
-         * - string[] suitPriority (constructor)
-         * 
-         * Return Values:
-         * - AddCard(): void
-         * - RemoveCard(): returns Card
-         * - Contains(): returns bool
-         * 
-         * Exceptions:
-         * - None (assumes valid inputs)
-         * 
-         * Pseudocode:
-         * AddCard():
-         *     ADD to list
-         *     IF hand is full -> CALL OrderBySuit()
-         * RemoveCard():
-         *     REMOVE first card
-         *     CALL OrderBySuit()
-         * Contains():
-         *     RETURN if card exists in list
-         * OrderBySuit():
-         *     Sort based on priority array
-         */
         public class Hand
         {
             //Fields:
@@ -474,7 +376,7 @@ namespace Edee_Assignment5
                 return _cardsList.Contains(target); //Checking if a target card is in hand (returns boolean)
             }
 
-            public void OrderBySuit() //There's a problem with this :(
+            public void OrderBySuit()
             {
                 List<Card> sortedCards = new List<Card>(); //New hand list
 
@@ -512,40 +414,6 @@ namespace Edee_Assignment5
 
         }
 
-
-        /* GAME STATE CLASS!!!
-         * 
-         * Algorithm:
-         * Manages the entire game environment.
-         * Initializes deck, discard pile, and player hands.
-         * Handles dealing, drawing, discarding, and displaying the game state.
-         * 
-         * Parameters:
-         * - bool hasJokers, string[] suitPriority (constructor)
-         * 
-         * Return Values:
-         * - Varies: string, Card, void
-         * 
-         * Exceptions:
-         * - Throws ArgumentException if trying to deal with not enough cards
-         * - Throws ArgumentException if trying to draw from an empty deck
-         * 
-         * Pseudocode:
-         * On setup:
-         *     INIT draw deck + discard pile
-         *     SHUFFLE deck
-         *     INIT player hands
-         * Deal():
-         *     VALIDATE enough cards
-         *     DEAL 4 cards per player
-         * DiscardCard():
-         *     PLACE card on discard pile
-         * DrawCard():
-         *     VALIDATE deck not empty
-         *     RETURN drawn card
-         * ToString():
-         *     RETURN full game summary
-         */
         public class GameState
         {
             //Fields:
@@ -669,31 +537,7 @@ namespace Edee_Assignment5
         }
 
 
-
-        /*SetUpGame():
-         * Algorithm:
-         * Initializes the game environment by creating a new GameState object using predefined values.
-         * This includes enabling jokers and assigning a fixed suit priority.
-         * Displays a confirmation message upon success, or an error message if initialization fails.
-         * 
-         * Parameters:
-         * - ref GameState gameState: passed by reference and initialized inside the method
-         * 
-         * Return Value:
-         * - None (void)
-         * 
-         * Exceptions:
-         * - Catches and displays any exception thrown during GameState initialization
-         * 
-         * Pseudocode:
-         * TRY:
-         *     SET hasJokers to true
-         *     SET suitPriority to a fixed string array
-         *     CREATE new GameState with these values
-         *     DISPLAY success message
-         * CATCH exception:
-         *     DISPLAY error message
-         */
+        //Menu Methods:
         static void SetUpGame(ref GameState gameState)
         {
             try
@@ -722,27 +566,6 @@ namespace Edee_Assignment5
             }
         }
 
-        /*DealHands():
-         * Algorithm:
-         * Attempts to deal cards to all players using the Deal() method of the GameState class.
-         * If successful, it shows a confirmation message. If there's an issue (like not enough cards), it catches and displays the error.
-         * 
-         * Parameters:
-         * - ref GameState gameState: reference to the GameState object that manages players and decks
-         * 
-         * Return Value:
-         * - None (void)
-         * 
-         * Exceptions:
-         * - Catches and displays exceptions that might occur during the Deal() process
-         * 
-         * Pseudocode:
-         * TRY:
-         *     CALL gameState.Deal()
-         *     DISPLAY success message
-         * CATCH exception:
-         *     DISPLAY error message
-         */
         static void DealHands(ref GameState gameState)
         {
             try
@@ -779,25 +602,7 @@ namespace Edee_Assignment5
         }
 
 
-
-        /* MenuChoiceValidation():
-         * Algorithm:
-         * This method prompts the user to enter a menu option and ensures it is a valid byte (1–4).
-         * It continues prompting until the input is valid and within range.
-         * 
-         * Parameters: None
-         * Return Value: byte - the valid menu choice selected by the user
-         * Exceptions: None (user is re-prompted on invalid input)
-         * 
-         * Pseudocode:
-         * DO:
-         *     PROMPT user for input
-         *     TRY to parse input to byte
-         *     IF parse succeeds AND value in range:
-         *         RETURN value
-         *     ELSE:
-         *         DISPLAY error and retry
-         */
+        //Verification method:
         static byte MenuChoiceValidation()
         {
             const byte MAX_MENU_CHOICE = 4; //Last choice for main menu

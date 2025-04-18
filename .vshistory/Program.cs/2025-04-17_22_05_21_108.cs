@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
 using static Edee_Assignment5.Program;
@@ -513,39 +511,7 @@ namespace Edee_Assignment5
         }
 
 
-        /* GAME STATE CLASS!!!
-         * 
-         * Algorithm:
-         * Manages the entire game environment.
-         * Initializes deck, discard pile, and player hands.
-         * Handles dealing, drawing, discarding, and displaying the game state.
-         * 
-         * Parameters:
-         * - bool hasJokers, string[] suitPriority (constructor)
-         * 
-         * Return Values:
-         * - Varies: string, Card, void
-         * 
-         * Exceptions:
-         * - Throws ArgumentException if trying to deal with not enough cards
-         * - Throws ArgumentException if trying to draw from an empty deck
-         * 
-         * Pseudocode:
-         * On setup:
-         *     INIT draw deck + discard pile
-         *     SHUFFLE deck
-         *     INIT player hands
-         * Deal():
-         *     VALIDATE enough cards
-         *     DEAL 4 cards per player
-         * DiscardCard():
-         *     PLACE card on discard pile
-         * DrawCard():
-         *     VALIDATE deck not empty
-         *     RETURN drawn card
-         * ToString():
-         *     RETURN full game summary
-         */
+
         public class GameState
         {
             //Fields:
@@ -669,31 +635,7 @@ namespace Edee_Assignment5
         }
 
 
-
-        /*SetUpGame():
-         * Algorithm:
-         * Initializes the game environment by creating a new GameState object using predefined values.
-         * This includes enabling jokers and assigning a fixed suit priority.
-         * Displays a confirmation message upon success, or an error message if initialization fails.
-         * 
-         * Parameters:
-         * - ref GameState gameState: passed by reference and initialized inside the method
-         * 
-         * Return Value:
-         * - None (void)
-         * 
-         * Exceptions:
-         * - Catches and displays any exception thrown during GameState initialization
-         * 
-         * Pseudocode:
-         * TRY:
-         *     SET hasJokers to true
-         *     SET suitPriority to a fixed string array
-         *     CREATE new GameState with these values
-         *     DISPLAY success message
-         * CATCH exception:
-         *     DISPLAY error message
-         */
+        //Menu Methods:
         static void SetUpGame(ref GameState gameState)
         {
             try
@@ -722,27 +664,6 @@ namespace Edee_Assignment5
             }
         }
 
-        /*DealHands():
-         * Algorithm:
-         * Attempts to deal cards to all players using the Deal() method of the GameState class.
-         * If successful, it shows a confirmation message. If there's an issue (like not enough cards), it catches and displays the error.
-         * 
-         * Parameters:
-         * - ref GameState gameState: reference to the GameState object that manages players and decks
-         * 
-         * Return Value:
-         * - None (void)
-         * 
-         * Exceptions:
-         * - Catches and displays exceptions that might occur during the Deal() process
-         * 
-         * Pseudocode:
-         * TRY:
-         *     CALL gameState.Deal()
-         *     DISPLAY success message
-         * CATCH exception:
-         *     DISPLAY error message
-         */
         static void DealHands(ref GameState gameState)
         {
             try
@@ -779,25 +700,7 @@ namespace Edee_Assignment5
         }
 
 
-
-        /* MenuChoiceValidation():
-         * Algorithm:
-         * This method prompts the user to enter a menu option and ensures it is a valid byte (1–4).
-         * It continues prompting until the input is valid and within range.
-         * 
-         * Parameters: None
-         * Return Value: byte - the valid menu choice selected by the user
-         * Exceptions: None (user is re-prompted on invalid input)
-         * 
-         * Pseudocode:
-         * DO:
-         *     PROMPT user for input
-         *     TRY to parse input to byte
-         *     IF parse succeeds AND value in range:
-         *         RETURN value
-         *     ELSE:
-         *         DISPLAY error and retry
-         */
+        //Verification method:
         static byte MenuChoiceValidation()
         {
             const byte MAX_MENU_CHOICE = 4; //Last choice for main menu

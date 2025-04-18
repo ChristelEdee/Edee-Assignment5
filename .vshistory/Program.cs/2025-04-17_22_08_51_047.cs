@@ -669,31 +669,7 @@ namespace Edee_Assignment5
         }
 
 
-
-        /*SetUpGame():
-         * Algorithm:
-         * Initializes the game environment by creating a new GameState object using predefined values.
-         * This includes enabling jokers and assigning a fixed suit priority.
-         * Displays a confirmation message upon success, or an error message if initialization fails.
-         * 
-         * Parameters:
-         * - ref GameState gameState: passed by reference and initialized inside the method
-         * 
-         * Return Value:
-         * - None (void)
-         * 
-         * Exceptions:
-         * - Catches and displays any exception thrown during GameState initialization
-         * 
-         * Pseudocode:
-         * TRY:
-         *     SET hasJokers to true
-         *     SET suitPriority to a fixed string array
-         *     CREATE new GameState with these values
-         *     DISPLAY success message
-         * CATCH exception:
-         *     DISPLAY error message
-         */
+        //Menu Methods:
         static void SetUpGame(ref GameState gameState)
         {
             try
@@ -722,27 +698,6 @@ namespace Edee_Assignment5
             }
         }
 
-        /*DealHands():
-         * Algorithm:
-         * Attempts to deal cards to all players using the Deal() method of the GameState class.
-         * If successful, it shows a confirmation message. If there's an issue (like not enough cards), it catches and displays the error.
-         * 
-         * Parameters:
-         * - ref GameState gameState: reference to the GameState object that manages players and decks
-         * 
-         * Return Value:
-         * - None (void)
-         * 
-         * Exceptions:
-         * - Catches and displays exceptions that might occur during the Deal() process
-         * 
-         * Pseudocode:
-         * TRY:
-         *     CALL gameState.Deal()
-         *     DISPLAY success message
-         * CATCH exception:
-         *     DISPLAY error message
-         */
         static void DealHands(ref GameState gameState)
         {
             try
