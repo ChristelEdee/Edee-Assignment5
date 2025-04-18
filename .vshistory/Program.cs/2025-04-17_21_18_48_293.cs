@@ -84,12 +84,17 @@ namespace Edee_Assignment5
                                 Console.WriteLine(gameState.ToString());
 
                                 Console.WriteLine("\n");
+                                    
+                                //Trying out the discarding card function (I have no idea how it actually works in the real game)
+                                Card card = new Card("Diamond", "3");
+                                Card card2 = new Card("Hearts", "King");
+                                Card card3 = new Card("Spades", "9");
 
-                                //Discarding cards? (Trying it out)
-                                DiscardCard(ref gameState);
+                                gameState.DiscardCard(card);
+                                gameState.DiscardCard(card2);
+                                gameState.DiscardCard(card3);
+
                                 Console.WriteLine(gameState.ToString());
-
-                                //I'm honestly not sure what else I'm supposed to do here. Try out all the class methods?
                             }
                             catch(Exception ex)
                             {
@@ -134,12 +139,6 @@ namespace Edee_Assignment5
                     this._color = "Black";
                 else
                     throw new ArgumentException("Invalid suit provided.");
-
-                string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen", "Ace" };
-
-                if(!ranks.Contains(rank ))
-                    throw new ArgumentException("Invalid rank provided.");
-
             }
 
             public Card(string color)
@@ -443,7 +442,7 @@ namespace Edee_Assignment5
             }
 
 
-            //Properties:
+            //Properties?:
             public int CardsLeft
             {
                 get { return _drawDeck.CardsLeft; }
@@ -453,11 +452,6 @@ namespace Edee_Assignment5
             {
                 get { return _discardPile.CardsLeft; }
             }
-
-            //public List<Hand> PlayerHands
-            //{
-            //    get { return _playerHands; }
-            //}
              
 
             //Methods:
@@ -588,19 +582,7 @@ namespace Edee_Assignment5
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
-
-        static void DiscardCard(ref GameState gameState) //I don't understand what the discard pile does. I don't play cards. 
-        {
-            Card cardToDisguard1 = gameState.DrawCard();
-            Card cardToDisguard2 = gameState.DrawCard();
-            Card cardToDisguard3 = gameState.DrawCard();
-
-
-            gameState.DiscardCard(cardToDisguard1);
-            gameState.DiscardCard(cardToDisguard2);
-            gameState.DiscardCard(cardToDisguard3);
-        }
-
+        
 
         //Verification method:
         static byte MenuChoiceValidation()

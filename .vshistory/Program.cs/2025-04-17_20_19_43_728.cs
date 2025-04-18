@@ -28,87 +28,113 @@ namespace Edee_Assignment5
             bool mainLoop = true; //The main loop (while true, menu continues appearing. Becomes false if user quits.)
             GameState gameState = null; //Useful for later
 
-            while (mainLoop)
-            {
-                Console.WriteLine("\n");
-
-                Console.WriteLine("Please choose below:\n");
-                Console.WriteLine("1- Setup Game");
-                Console.WriteLine("2- Deal Hands");
-                Console.WriteLine("3- Display Gameboard");
-                Console.WriteLine("4- Quit\n");
-                Console.Write("Choice: ");
-
-                byte menuChoice = MenuChoiceValidation(); //Processing the user's choice
-
-                //The main switch loop depending on the previous user input:
-                switch (menuChoice)
+                while (mainLoop)
                 {
-                    case 1:
-                        SetUpGame(ref gameState);         
-                    break;
+                    Console.WriteLine("\n");
 
-                    case 2:
-                        //Making sure the game was actually set up:
-                        if(gameState == null)
-                        {
-                            Console.WriteLine();
+                    Console.WriteLine("Please choose below:\n");
+                    Console.WriteLine("1- Setup Game");
+                    Console.WriteLine("2- Deal Hands");
+                    Console.WriteLine("3- Display Gameboard");
+                    Console.WriteLine("4- Quit\n");
+                    Console.Write("Choice: ");
 
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("You need to set up a game first.");
-                            Console.ForegroundColor= ConsoleColor.White;
-                        }
-                        else
-                            DealHands(ref gameState);
-                        
-                            
-                    break;
+                    byte menuChoice = MenuChoiceValidation(); //Processing the user's choice
 
-                    case 3:
-                        //Making sure the game was actually set up:
-                        if (gameState == null)
-                        {
-                            Console.WriteLine();
-
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("You need to set up a game first.");
-                            Console.ForegroundColor = ConsoleColor.White;
-                        }
-                        else
-                        {
+                    //The main switch loop depending on the previous user input:
+                    switch (menuChoice)
+                    {
+                        case 1:
                             try
                             {
-                                Console.Clear(); //Keeping the console clean
+                                //Setting up the jokers (can change between true and false)
+                                bool hasJokers = true;
 
-                                Console.OutputEncoding = Encoding.UTF8; //Have to put this to get the suit symbols                               
-                                Console.WriteLine(gameState.ToString());
+                                //Seeting  up the suit priority (Options: Hearts, Diamonds, Clubs, Spades)
+                                string[] suitPriority = { "Diamonds", "Clubs", "Hearts", "Spades" };
 
-                                Console.WriteLine("\n");
+                                //Initializing game state with the joker boolean and the suit priority 
+                                gameState = new GameState(hasJokers, suitPriority);
+    
+                                //Little success message:
+                                Console.WriteLine();
 
-                                //Discarding cards? (Trying it out)
-                                DiscardCard(ref gameState);
-                                Console.WriteLine(gameState.ToString());
-
-                                //I'm honestly not sure what else I'm supposed to do here. Try out all the class methods?
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Game successfully set up.");
+                                Console.ForegroundColor = ConsoleColor.White;
                             }
                             catch(Exception ex)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine($"Error: {ex.Message}");
                                 Console.ForegroundColor = ConsoleColor.White;
-                            }                      
-                        }               
-                    break;
+                            }            
+                        break;
 
-                    case 4:
-                        mainLoop = false;
-                    break;
+                        case 2:
+                            //Making sure the game was actually set up:
+                            if(gameState == null)
+                            {
+                                Console.WriteLine();
+
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("You need to set up a game first.");
+                                Console.ForegroundColor= ConsoleColor.White;
+                                break;
+                            }
+
+                            try
+                            {
+                                //Dealing
+                                gameState.Deal();
+
+                                //Little success message:
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Hands sucessfully dealt to all players.");
+                                Console.ForegroundColor = ConsoleColor.White;
+
+                            }
+                            catch(Exception ex)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine($"Error: {ex.Message}");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                        break;
+
+                        case 3:
+                            //Making sure the game was actually set up:
+                            if (gameState == null)
+                            {
+                                Console.WriteLine();
+
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("You need to set up a game first.");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Console.Clear(); //Keeping the console clean
+
+                                Console.OutputEncoding = Encoding.UTF8; //Have to put this to get the suit symbols                               
+                                Console.WriteLine(gameState.ToString());
+                            }               
+                        break;
+
+                        case 4:
+                            mainLoop = false;
+                        break;
+                    }
                 }
-            }
 
-            Console.WriteLine(); //Space
+                Console.WriteLine(); //Space
 
-            Console.Write("Press any key to exit the program.");
+                Console.Write("Press any key to exit the program.");
+                Console.ReadLine();
+
+
+            
+
             Console.ReadLine();
         }
 
@@ -134,12 +160,6 @@ namespace Edee_Assignment5
                     this._color = "Black";
                 else
                     throw new ArgumentException("Invalid suit provided.");
-
-                string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen", "Ace" };
-
-                if(!ranks.Contains(rank ))
-                    throw new ArgumentException("Invalid rank provided.");
-
             }
 
             public Card(string color)
@@ -314,14 +334,14 @@ namespace Edee_Assignment5
             {
                 //Making sure the deck isn't empty
                 if (_cardsList.Count == 0)
-                    return null;
+                    throw new ArgumentException("No cards left in the deck.");
 
                 return _cardsList[0]; //Returning the top card of the deck (no removing)
             }
 
             public void PlaceOnTop(Card card)
             {
-                _cardsList.Insert(0, card); //Adding a provided card to the top of the deck
+                _cardsList.Insert(0, card); //Adding a provided card to the top of the decl
             }
 
 
@@ -357,9 +377,7 @@ namespace Edee_Assignment5
             public void AddCard(Card card)
             {
                 _cardsList.Add(card); //Adding a card to the hand
-
-                if(_cardsList.Count == 4)
-                    OrderBySuit(); //Reordering the hand accordingly once all the cards has been distributed to the hand
+                OrderBySuit(); //Reordering the hand accordingly
             }
 
             public Card RemoveCard()
@@ -443,7 +461,7 @@ namespace Edee_Assignment5
             }
 
 
-            //Properties:
+            //Properties?:
             public int CardsLeft
             {
                 get { return _drawDeck.CardsLeft; }
@@ -453,11 +471,6 @@ namespace Edee_Assignment5
             {
                 get { return _discardPile.CardsLeft; }
             }
-
-            //public List<Hand> PlayerHands
-            //{
-            //    get { return _playerHands; }
-            //}
              
 
             //Methods:
@@ -471,11 +484,11 @@ namespace Edee_Assignment5
                 }
 
                 
-                int cardsPerPlayer = 4; //Deciding that each player will have 4 cards
+                //int cardsPerPlayer = 7; //Deciding that each player will have 7 cards
 
                 for (int i = 0; i < _playerHands.Count; i++)
                 {
-                    for(int j = 0;  j < cardsPerPlayer; j++)
+                    for(int j = 0;  j < 4; j++)
                     {
                         Card dealtCard = _drawDeck.Draw(); //Drawing from the deck
                         _playerHands[i].AddCard(dealtCard); //Adding the drawn card to the player's hand
@@ -527,78 +540,10 @@ namespace Edee_Assignment5
                 gameStateDisplay += $"Draw Deck: {CardsLeft} cards left.\n";
 
                 //Display discard pile
-                if (_discardPile.Peek() == null)
-                    gameStateDisplay += "No cards in the discard pile.";
-                else
-                    gameStateDisplay += $"Discard Pile: {DiscardPileSize} cards (Top card: {_discardPile.Peek()})\n";
+                gameStateDisplay += $"Discard Pile: {DiscardPileSize} cards (Top card: {_discardPile.Peek()}\n";
 
                 return gameStateDisplay;
             }
-        }
-
-
-        //Menu Methods:
-        static void SetUpGame(ref GameState gameState)
-        {
-            try
-            {
-                //Setting up the jokers (can change between true and false)
-                bool hasJokers = true;
-
-                //Seeting  up the suit priority (Options: Hearts, Diamonds, Clubs, Spades)
-                string[] suitPriority = { "Diamonds", "Clubs", "Hearts", "Spades" };
-
-                //Initializing game state with the joker boolean and the suit priority 
-                gameState = new GameState(hasJokers, suitPriority);
-
-                //Little success message:
-                Console.WriteLine();
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Game successfully set up.");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            catch (Exception ex)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Error: {ex.Message}");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
-
-        static void DealHands(ref GameState gameState)
-        {
-            try
-            {
-                //Dealing
-                gameState.Deal();
-
-                //Little success message:
-                Console.WriteLine();
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Hands sucessfully dealt to all players.");
-                Console.ForegroundColor = ConsoleColor.White;
-
-            }
-            catch (Exception ex)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Error: {ex.Message}");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
-
-        static void DiscardCard(ref GameState gameState) //I don't understand what the discard pile does. I don't play cards. 
-        {
-            Card cardToDisguard1 = gameState.DrawCard();
-            Card cardToDisguard2 = gameState.DrawCard();
-            Card cardToDisguard3 = gameState.DrawCard();
-
-
-            gameState.DiscardCard(cardToDisguard1);
-            gameState.DiscardCard(cardToDisguard2);
-            gameState.DiscardCard(cardToDisguard3);
         }
 
 
@@ -621,7 +566,5 @@ namespace Edee_Assignment5
 
             return userInput;
         }
-
-
     }
 }

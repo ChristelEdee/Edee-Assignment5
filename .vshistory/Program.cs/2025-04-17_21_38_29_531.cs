@@ -88,8 +88,6 @@ namespace Edee_Assignment5
                                 //Discarding cards? (Trying it out)
                                 DiscardCard(ref gameState);
                                 Console.WriteLine(gameState.ToString());
-
-                                //I'm honestly not sure what else I'm supposed to do here. Try out all the class methods?
                             }
                             catch(Exception ex)
                             {
